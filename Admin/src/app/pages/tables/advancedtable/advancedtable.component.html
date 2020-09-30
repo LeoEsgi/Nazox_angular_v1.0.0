@@ -1,0 +1,153 @@
+<div class="container-fluid">
+  <app-pagetitle title="Advanced Table" [breadcrumbItems]="breadCrumbItems"></app-pagetitle>
+    <!-- Default switch -->
+    <div class="col-lg-6" style="padding-bottom: 20px;">
+    <div class="custom-control custom-switch">
+      <input type="checkbox" class="custom-control-input" id="customSwitches">
+      <label class="custom-control-label" for="customSwitches">Intraday</label>
+    </div>
+</div>
+  <div class="col-lg-6">
+    <div class="card">
+      <div class="card-body">
+        <h4 class="card-title">{{gaugeChartPEC.series[0].name}}</h4>
+        <!--<div echarts [options]="gaugeChartPEC" class="demo-chart"></div>-->
+      </div>
+    </div>
+  </div>
+     
+  <div class="col-lg-6">
+    <div class="card">
+      <div class="card-body">
+        <h4 class="card-title">{{gaugeChartTR90.series[0].name}}</h4>
+        <!--<div echarts [options]="gaugeChartTR90" class="demo-chart"></div>-->
+      </div>
+    </div>
+  </div>
+  
+  <p class="mb-0">
+    
+  </p>
+  <div class="row">
+    <div class="col-12">
+      <div class="card">
+        <div class="card-body">
+          <h2 class="card-title">Data for :  {{param}} </h2> 
+          <p class="card-sub-title">
+           
+          </p>
+          <div class="row mb-md-2">
+            <div class="col-sm-12 col-md-6">
+              <div class="dataTables_length" id="tickets-table_length"><label
+                  class="d-inline-flex align-items-center">Show
+                  <select name="tickets-table_length" aria-controls="tickets-table" name="pageSize"
+                    [(ngModel)]="service.pageSize"
+                    class="custom-select custom-select-sm form-control form-control-sm mx-2">
+                    <option [ngValue]="10">10</option>
+                    <option [ngValue]="25">25</option>
+                    <option [ngValue]="50">50</option>
+                    <option [ngValue]="100">100</option>
+                  </select> entries</label></div>
+            </div>
+            <!-- Search -->
+            <div class="col-sm-12 col-md-6">
+              <div id="tickets-table_filter" class="dataTables_filter text-md-right"><label
+                  class="d-inline-flex align-items-center">Search:
+                  <input type="text" name="searchTerm" class="form-control form-control-sm ml-2"
+                    aria-controls="tickets-table" [(ngModel)]="service.searchTerm"></label></div>
+            </div>
+            <!-- End search -->
+          </div>
+          <!-- Table -->
+          <div class="table-responsive">
+            <table id="basic-datatable"
+              class="table table-bordered dt-responsive nowrap datatables no-footer dtr-inline">
+              <thead>
+                <tr>
+                  <th></th>
+                  <th sortable="name" (sort)="onSort($event)">Flux</th>
+                  <th sortable="position" (sort)="onSort($event)">Nb appel offert</th>
+                  <th sortable="office" (sort)="onSort($event)">Taux Pec</th>
+                  <th sortable="age" (sort)="onSort($event)">DMR</th>
+                  <th sortable="date" (sort)="onSort($event)">Déconnectés VMS</th>
+                  <th sortable="salary" (sort)="onSort($event)">Niveau de TR300</th>
+                
+                </tr>
+              </thead>
+              <tbody *ngFor="let table of tables$ | async;let i=index">
+                <tr>
+                  <td align="center">
+                    <a class="expand-row" (click)="changeValue(i)">
+                      +
+                    </a>
+                  </td>
+                  <td>
+                    <ngb-highlight [result]="table.name" [term]="service.searchTerm"></ngb-highlight>
+                  </td>
+                  <td>
+                    <ngb-highlight [result]="table.position" [term]="service.searchTerm"></ngb-highlight>
+                  </td>
+                  <td>
+                    <ngb-highlight [result]="table.office" [term]="service.searchTerm"></ngb-highlight>
+                  </td>
+                  <td>
+                    <ngb-highlight [result]="table.age" [term]="service.searchTerm"></ngb-highlight>
+                  </td>
+                  <td>
+                    <ngb-highlight [result]="table.date" [term]="service.searchTerm"></ngb-highlight>
+                  </td>
+                  <td>
+                    <ngb-highlight [result]="table.salary" [term]="service.searchTerm"></ngb-highlight>
+                  </td>              
+                </tr>
+                <tr *ngIf="!hideme[i]" class="sub-table no-bg">
+                  <td align="center"> </td>
+                  <td colspan="15" class="p-0">
+                    <table class="table mb-0 table-striped">
+                      <thead>
+                        <tr>
+                          <th>End date</th>
+                          <th>Unit</th>
+                          <th>Sales Account</th>
+                          <th>Buy Account</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <td>{{table.enddate}}</td>
+                          <td>{{table.unit}}</td>
+                          <td>{{table.name}}</td>
+                          <td>{{table.name}}</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <!-- End table -->
+          <div class="row justify-content-md-between align-items-md-center mt-2">
+            <div class="col-sm-12 col-md-5">
+              <div class="dataTables_info mb-2" id="tickets-table_info" role="status" aria-live="polite">Showing
+                {{service.startIndex}} to
+                {{service.endIndex}} of {{service.totalRecords}}
+                entries
+              </div>
+            </div>
+            <!-- Pagination -->
+            <div class="col-sm-12 col-md-5">
+              <div class="text-md-right float-md-right pagination-rounded">
+                <ngb-pagination [collectionSize]="total$ | async" [(page)]="service.page" [pageSize]="service.pageSize">
+                </ngb-pagination>
+              </div>
+            </div>
+            
+            <!-- End Pagination -->
+            
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
