@@ -3,6 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 
 import { BasicComponent } from './basic/basic.component';
 import { AdvancedtableComponent } from './advancedtable/advancedtable.component';
+import { DragDropModule } from '@angular/cdk/drag-drop';
 
 const routes: Routes = [
     {
@@ -10,7 +11,35 @@ const routes: Routes = [
         component: BasicComponent
     },
     {
-        path: 'advanced/flux/:id',
+        path: 'advanced/activite/:activite',
+        component: AdvancedtableComponent
+    },
+    {
+        path: 'advanced/activite/:activite/flux/:flux',
+        component: AdvancedtableComponent
+    },
+    {
+        path: 'advanced/grpFlux/:grpFlux',
+        component: AdvancedtableComponent
+    },
+    {
+        path: 'advanced/grpFlux/:grpFlux/flux/:flux',
+        component: AdvancedtableComponent
+    },
+    {
+        path: 'advanced/site/:site',
+        component: AdvancedtableComponent
+    },
+    {
+        path: 'advanced/site/:site/unite/:unite',
+        component: AdvancedtableComponent
+    },
+    {
+        path: 'advanced/site/:site/unite/:unite/equipe/:equipe',
+        component: AdvancedtableComponent
+    },
+    {
+        path: 'advanced/site/:site/unite/:unite/equipe/:equipe/agent/:agent',
         component: AdvancedtableComponent
     },
     {

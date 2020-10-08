@@ -1,4 +1,4 @@
-import { AdvancedtableComponent } from '../tables/advancedtable/advancedtable.component'
+import { AdvancedtableComponent } from '../tables/advancedtable/advancedtable.component';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 

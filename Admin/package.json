@@ -1,5 +1,5 @@
 {
-  "name": "nazox",
+  "name": "dashboard",
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
@@ -13,6 +13,7 @@
   "dependencies": {
     "@agm/core": "^1.1.0",
     "@angular/animations": "~10.0.3",
+    "@angular/cdk": "^10.2.3",
     "@angular/common": "^10.0.3",
     "@angular/compiler": "~10.0.3",
     "@angular/core": "~10.0.3",
@@ -36,6 +37,7 @@
     "@ngx-translate/core": "^13.0.0",
     "@ngx-translate/http-loader": "^6.0.0",
     "angular-archwizard": "^6.1.0",
+    "angular-resizable-element": "^3.3.3",
     "apexcharts": "^3.19.2",
     "bootstrap": "^4.5.0",
     "bs-custom-file-input": "^1.3.4",

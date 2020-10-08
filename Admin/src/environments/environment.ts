@@ -4,16 +4,11 @@
 
 export const environment = {
   production: false,
-  defaultauth: 'fackbackend',
-  firebaseConfig: {
-    apiKey: '',
-    authDomain: '',
-    databaseURL: '',
-    projectId: '',
-    storageBucket: '',
-    messagingSenderId: '',
-    appId: '',
-    measurementId: ''
+  webServiceConfig: {
+    protocol: 'http://',
+    domain: 'localhost/',
+    port: ':8080',
+    path: 'Api/'
   }
 };
 

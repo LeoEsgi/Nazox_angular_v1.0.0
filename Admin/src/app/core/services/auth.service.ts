@@ -17,7 +17,9 @@ export class AuthenticationService {
      * Returns the current user
      */
     public currentUser(): User {
-        return getFirebaseBackend().getAuthenticatedUser();
+        const user = new User();
+        user.username = 'Administrateur';
+        return user;
     }
 
     /**
@@ -26,10 +28,10 @@ export class AuthenticationService {
      * @param password password of user
      */
     login(email: string, password: string) {
-        return getFirebaseBackend().loginUser(email, password).then((response: any) => {
-            const user = response;
-            return user;
-        });
+
+        const user = 'Administrateur';
+        return user;
+
     }
 
     /**

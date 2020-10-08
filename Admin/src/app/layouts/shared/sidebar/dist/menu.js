@@ -98,6 +98,7 @@ exports.MENU = [
         ]
     },
     {
+        
         id: 15,
         label: 'MENUITEMS.KANBAN.TEXT',
         icon: 'ri-artboard-2-line',

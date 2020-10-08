@@ -24,7 +24,7 @@ export class SignupComponent implements OnInit, AfterViewInit {
 
   // tslint:disable-next-line: max-line-length
   constructor(private formBuilder: FormBuilder, private route: ActivatedRoute, private router: Router, private authenticationService: AuthenticationService,
-              private userService: UserProfileService) { }
+    private userService: UserProfileService) { }
 
   ngOnInit() {
     document.body.removeAttribute('data-layout');
@@ -53,30 +53,17 @@ export class SignupComponent implements OnInit, AfterViewInit {
     if (this.signupForm.invalid) {
       return;
     } else {
-      if (environment.defaultauth === 'firebase') {
-        this.authenticationService.register(this.f.email.value, this.f.password.value).then((res: any) => {
-          this.successmsg = true;
-          if (this.successmsg) {
-            this.router.navigate(['/']);
-          }
-        })
-          .catch(error => {
-            this.error = error ? error : '';
-          });
-      } else {
-        this.userService.register(this.signupForm.value)
-          .pipe(first())
-          .subscribe(
-            data => {
-              this.successmsg = true;
-              if (this.successmsg) {
-                this.router.navigate(['/account/login']);
-              }
-            },
-            error => {
-              this.error = error ? error : '';
-            });
-      }
+
+      this.authenticationService.register(this.f.email.value, this.f.password.value).then((res: any) => {
+        this.successmsg = true;
+        if (this.successmsg) {
+          this.router.navigate(['/']);
+        }
+      })
+        .catch(error => {
+          this.error = error ? error : '';
+        });
+
     }
   }
 }

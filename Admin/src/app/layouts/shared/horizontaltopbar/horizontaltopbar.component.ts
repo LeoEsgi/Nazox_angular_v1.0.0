@@ -32,9 +32,9 @@ export class HorizontaltopbarComponent implements OnInit {
   ];
 
   constructor(@Inject(DOCUMENT) private document: any, private router: Router, private authService: AuthenticationService,
-              private authFackservice: AuthfakeauthenticationService,
-              public languageService: LanguageService,
-              public cookiesService: CookieService) { }
+    private authFackservice: AuthfakeauthenticationService,
+    public languageService: LanguageService,
+    public cookiesService: CookieService) { }
 
   ngOnInit(): void {
     this.element = document.documentElement;
@@ -116,11 +116,8 @@ export class HorizontaltopbarComponent implements OnInit {
    * Logout the user
    */
   logout() {
-    if (environment.defaultauth === 'firebase') {
-      this.authService.logout();
-    } else {
-      this.authFackservice.logout();
-    }
+
+    this.authService.logout();
     this.router.navigate(['/account/login']);
   }
 

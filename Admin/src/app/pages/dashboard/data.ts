@@ -38,12 +38,12 @@ const revenueChart: ChartType = {
 };
 
 const salesAnalytics: ChartType = {
-    series: [42, 26, 15],
+    series: [30, 20, 25, 25],
     chart: {
         height: 230,
         type: 'donut',
     },
-    labels: ['Product A', 'Product B', 'Product C'],
+    labels: ['Reçus', 'Offerts', 'Répondus', 'Abandonnés'],
     plotOptions: {
         pie: {
             donut: {
@@ -57,7 +57,7 @@ const salesAnalytics: ChartType = {
     legend: {
         show: false,
     },
-    colors: ['#5664d2', '#1cbb8c', '#eeb902'],
+    colors: ['#5664d2', '#1cbb8c', '#eeb902', '#d25656'],
 };
 
 const sparklineEarning: ChartType = {
@@ -217,16 +217,16 @@ const transactions = [
 const statData = [
     {
         icon: 'ri-stack-line',
-        title: 'Number of Sales',
+        title: 'Number of call',
         value: '1452'
     }, {
         icon: 'ri-store-2-line',
-        title: 'Sales Revenue',
-        value: '$ 38452'
+        title: 'Taux PEC',
+        value: '50%'
     }, {
         icon: 'ri-briefcase-4-line',
-        title: 'Average Price',
-        value: '$ 15.4'
+        title: 'Average Call',
+        value: ' 15.4'
     }
 ];
 

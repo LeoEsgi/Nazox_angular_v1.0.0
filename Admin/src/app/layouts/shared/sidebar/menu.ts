@@ -1,4 +1,52 @@
+import { Activite } from 'src/app/core/models/activite.models';
+import { Flux } from 'src/app/core/models/flux.models';
+import { FluxElem } from 'src/app/core/models/fluxElem.models';
+import { GrpFlux } from 'src/app/core/models/grpFlux.models';
+import { ArrayModel } from 'src/app/pages/ecommerce/products/products.model';
+import { environment } from 'src/environments/environment';
 import { MenuItem } from './menu.model';
+
+
+const routeActivite = '/advanced/activite/';
+const routeGrpFlux = '/advanced/grpFlux/';
+const routeSite = '/advanced/site/';
+
+
+
+const protocol = environment.webServiceConfig.protocol;
+const domain = environment.webServiceConfig.domain;
+const path = environment.webServiceConfig.path;
+
+// tslint:disable-next-line: one-variable-per-declaration
+const Sites: MenuItem[] = [], Unites: MenuItem[] = [], Equipes: MenuItem[] = [], Agents: MenuItem[] = [];
+// tslint:disable-next-line: one-variable-per-declaration
+const Activités: MenuItem[] = []; const Fluxs: MenuItem[] = [];
+// tslint:disable-next-line: one-variable-per-declaration
+const GrpFluxs: MenuItem[] = []; const Fluxs2: MenuItem[] = [];
+
+
+const arrayActivite: Activite[] = [];
+const arrayActiviteFlux: Flux[] = [];
+
+
+const arrayGrpFlux: Activite[] = [];
+const arrayGrpFluxFlux: Flux[] = [];
+
+
+
+
+
+const arraySites = ['Site 1', 'Site 2'];
+const arrayUnites = ['Unite 1', 'Unite 2', 'Unite 3'];
+const arrayEquipe = ['Equipe 1', 'Equipe 2', 'Equipe 3', 'Equipe 4'];
+const arrayAgents = ['Agent 1', 'Agent 2', 'Agent 3', 'Agent 4', 'Agent 5'];
+
+const xhrActivite = new XMLHttpRequest();
+const xhrGrpFlux = new XMLHttpRequest();
+const xhrSite = new XMLHttpRequest();
+
+
+
 
 export const MENU: MenuItem[] = [
     {
@@ -19,28 +67,126 @@ export const MENU: MenuItem[] = [
 ];
 
 
-const Activités: MenuItem[] = [];
-const Flux: MenuItem[] = [];
 
-const array1 = ['Activité 1', 'Activité 2', 'Activité 3'];
-const array2 = ['Flux 1', 'Flux 2', 'Flux 3', 'Flux 4', 'Flux 5'];
+xhrActivite.withCredentials = true;
+xhrActivite.open
+    (
+        'GET',
+        protocol + domain + path + '/Activite',
+        true
+    );
+xhrActivite.send();
+xhrActivite.onload = () => {
+    if (xhrActivite.status !== 200) {
+        // analyze HTTP status of the response
+        alert(`Error ${xhrActivite.status}: ${xhrActivite.statusText}`); // e.g. 404: Not Found
+    } else {
 
-for (let y = 0, len2 = array2.length; y < len2; y++) {
-    Flux.push({
-        id: 85,
-        label: array2[y],
-        parentId: 72,
-        link: '/advanced/flux/' + array2[y].replace(' ', ''),
-    });
-}
-for (let i = 0, len = array1.length; i < len; i++) {
-    Activités.push({
-        id: 72,
-        label: array1[i],
-        parentId: 70,
-        subItems: Flux,
-    });
+        const obj = JSON.parse(xhrActivite.responseText);
+
+        const names = Object.keys(obj.Activite.entries);
+        const jsonSize = names.length;
+        for (let i = 0; i < jsonSize; i++) {
+            try {
+                const flux = new Flux();
+                flux.label = 'Flux Test';
+                arrayActiviteFlux.push(flux);
+                const activite = new Activite();
+                activite.label = names[i];
+                arrayActivite.push(activite);
+            } catch (exception) {
+                console.log(exception.toString());
+
+            }
+        }
+
+
+
+
+        for (let y = 0, len2 = arrayActiviteFlux.length; y < len2; y++) {
+            Fluxs.push({
+                id: 85,
+                label: arrayActiviteFlux[y].label,
+                parentId: 72,
+                link: routeActivite + 'Act2/flux/' + arrayActiviteFlux[y].label,
+            });
+        }
+
+        for (let i = 0, len = arrayActivite.length; i < len; i++) {
+            Activités.push({
+                id: 72,
+                label: arrayActivite[i].label,
+                parentId: 70,
+                subItems: Fluxs,
+                link: routeActivite + arrayActivite[i].label,
+            });
+        }
+    }
 };
+
+
+
+
+xhrGrpFlux.withCredentials = true;
+xhrGrpFlux.open
+    (
+        'GET',
+        protocol + domain + path + '/GrpFlux',
+        true
+    );
+xhrGrpFlux.send();
+xhrGrpFlux.onload = () => {
+    if (xhrGrpFlux.status !== 200) {
+        // analyze HTTP status of the response
+        alert(`Error ${xhrGrpFlux.status}: ${xhrGrpFlux.statusText}`); // e.g. 404: Not Found
+    } else {
+
+        const obj = JSON.parse(xhrGrpFlux.responseText);
+
+        const names = Object.keys(obj.GrpFlux.entries);
+        const jsonSize = names.length;
+        for (let i = 0; i < jsonSize; i++) {
+            try {
+                const flux = new Flux();
+                flux.label = 'Flux Test';
+                arrayGrpFluxFlux.push(flux);
+                const grpFlux = new GrpFlux();
+                grpFlux.label = names[i];
+                arrayGrpFlux.push(grpFlux);
+            } catch (exception) {
+                console.log(exception.toString());
+
+            }
+        }
+
+
+
+
+
+        for (let y = 0, len2 = 5; y < len2; y++) {
+            Fluxs2.push({
+                id: 85,
+                label: arrayGrpFluxFlux[0].label,
+                parentId: 72,
+                link: routeGrpFlux + arrayGrpFlux[0].label + '/flux/' + arrayGrpFluxFlux[0].label,
+            });
+        }
+
+        for (let i = 0, len = 3; i < len; i++) {
+            GrpFluxs.push({
+                id: 72,
+                label: arrayGrpFlux[0].label,
+                parentId: 70,
+                subItems: Fluxs2,
+                link: routeGrpFlux + arrayGrpFlux[0].label,
+            });
+        }
+    }
+};
+
+
+
+
 
 
 
@@ -60,47 +206,41 @@ MENU.push({
             id: 71,
             label: 'MENUITEMS.MULTILEVEL.LIST.LEVEL2.1',
             parentId: 69,
-            subItems: [
-                {
-                    id: 72,
-                    label: 'MENUITEMS.MULTILEVEL.LIST.LEVEL2.1.2.1',
-                    link: 'javascript: void(0);',
-                    parentId: 71,
-                    subItems: [
-                        {
-                            id: 74,
-                            label: 'Flux 1',
-                            link: 'javascript: void(0);',
-                            parentId: 72,
-                        }, {
-                            id: 75,
-                            label: 'Flux 2',
-                            link: 'javascript: void(0);',
-                            parentId: 72,
-                        }]
-                },
-                {
-                    id: 73,
-                    label: 'MENUITEMS.MULTILEVEL.LIST.LEVEL2.1.2.2',
-                    link: 'javascript: void(0);',
-                    parentId: 71,
-                    subItems: [
-                        {
-                            id: 74,
-                            label: 'Flux 1',
-                            link: 'javascript: void(0);',
-                            parentId: 72,
-                        }, {
-                            id: 75,
-                            label: 'Flux 2',
-                            link: 'javascript: void(0);',
-                            parentId: 72,
-                        }]
-                }
-            ]
+            subItems: GrpFluxs
         },
     ]
 });
+
+for (let y = 0, len2 = arrayAgents.length; y < len2; y++) {
+    Agents.push({
+        label: arrayAgents[y],
+        link: routeSite + 'Site 1/unite/Unite 1/equipe/Equipe 1/agent/' + arrayAgents[y].replace(' ', ''),
+    });
+}
+
+for (let y = 0, len2 = arrayEquipe.length; y < len2; y++) {
+    Equipes.push({
+        label: arrayEquipe[y],
+        link: routeSite + 'Site 1/unite/Unite 1/equipe/' + arrayEquipe[y].replace(' ', ''),
+        subItems: Agents,
+    });
+}
+
+for (let y = 0, len2 = arrayUnites.length; y < len2; y++) {
+    Unites.push({
+        label: arrayUnites[y],
+        link: routeSite + 'Site 1/unite/' + arrayUnites[y].replace(' ', ''),
+        subItems: Equipes,
+    });
+}
+for (let y = 0, len2 = arraySites.length; y < len2; y++) {
+    Sites.push({
+        label: arraySites[y],
+        parentId: 70,
+        link: routeSite + arraySites[y].replace(' ', ''),
+        subItems: Unites,
+    });
+}
 
 MENU.push({
     id: 69,
@@ -112,162 +252,13 @@ MENU.push({
             label: 'MENUITEMS.MULTILEVEL2.LIST.LEVEL1.1',
             parentId: 69,
             link: 'javascript: void(0);',
-            subItems: [
-                {
-                    id: 72,
-                    label: 'MENUITEMS.MULTILEVEL2.LIST.LEVEL1.1.2.1',
-                    link: 'javascript: void(0);',
-                    parentId: 70,
-                    subItems: [
-                        {
-                            id: 73,
-                            label: 'Unité 1',
-                            link: 'javascript: void(0);',
-                            parentId: 70,
-                            subItems: [
-                                {
-                                    id: 73,
-                                    label: 'TMA',
-                                    link: 'javascript: void(0);',
-                                    parentId: 70,
-                                    subItems: [
-                                        {
-                                            id: 73,
-                                            label: 'Daviere Léo',
-                                            link: 'javascript: void(0);',
-                                            parentId: 70,
-                                        }
-                                        ,
-                                        {
-                                            id: 74,
-                                            label: 'Bibal Alain',
-                                            link: 'javascript: void(0);',
-                                            parentId: 70,
-                                        }
-                                    ]
-                                }
-                                ,
-                                {
-                                    id: 74,
-                                    label: 'Equipe 2',
-                                    link: 'javascript: void(0);',
-                                    parentId: 70,
-                                }
-                            ]
-                        }
-                        ,
-                        {
-                            id: 74,
-                            label: 'Unité 2',
-                            link: 'javascript: void(0);',
-                            parentId: 70,
-                        }
-
-                    ]
-                },
-                {
-                    id: 73,
-                    label: 'MENUITEMS.MULTILEVEL2.LIST.LEVEL1.1.2.2',
-                    link: 'javascript: void(0);',
-                    parentId: 70,
-                    subItems: [
-                        {
-                            id: 73,
-                            label: 'Unité 1',
-                            link: 'javascript: void(0);',
-                            parentId: 70,
-                        }
-                        ,
-                        {
-                            id: 74,
-                            label: 'Unité 2',
-                            link: 'javascript: void(0);',
-                            parentId: 70,
-                        }
-
-
-
-
-                    ]
-                }
-                ,
-                {
-                    id: 74,
-                    label: 'MENUITEMS.MULTILEVEL2.LIST.LEVEL1.1.2.3',
-                    link: 'javascript: void(0);',
-                    parentId: 70,
-                    subItems: [
-                        {
-                            id: 73,
-                            label: 'Unité 1',
-                            link: 'javascript: void(0);',
-                            parentId: 70,
-                        }
-                        ,
-                        {
-                            id: 74,
-                            label: 'Unité 2',
-                            link: 'javascript: void(0);',
-                            parentId: 70,
-                        }
-
-
-
-
-                    ]
-                }
-                ,
-                {
-                    id: 75,
-                    label: 'MENUITEMS.MULTILEVEL2.LIST.LEVEL1.1.2.4',
-                    link: 'javascript: void(0);',
-                    parentId: 70,
-                    subItems: [
-                        {
-                            id: 73,
-                            label: 'Unité 1',
-                            link: 'javascript: void(0);',
-                            parentId: 70,
-                        }
-                        ,
-                        {
-                            id: 74,
-                            label: 'Unité 2',
-                            link: 'javascript: void(0);',
-                            parentId: 70,
-                        }
-
-
-
-
-                    ]
-                }
-            ]
+            subItems: Sites,
         },
         {
             id: 71,
             label: 'MENUITEMS.MULTILEVEL2.LIST.LEVEL2.1',
             parentId: 69,
-            subItems: [
-                {
-                    id: 72,
-                    label: 'MENUITEMS.MULTILEVEL2.LIST.LEVEL2.1.2.1',
-                    parentId: 71,
-                    subItems: [
-                        {
-                            id: 74,
-                            label: 'Flux 1',
-                            link: 'javascript: void(0);',
-                            parentId: 72,
-                        }]
-                },
-                {
-                    id: 73,
-                    label: 'MENUITEMS.MULTILEVEL2.LIST.LEVEL2.1.2.2',
-                    link: 'javascript: void(0);',
-                    parentId: 71,
-                }
-            ]
+            subItems: Sites,
         },
     ]
 });
@@ -297,25 +288,7 @@ MENU.push({
         }
     ]
 },
-    {
-        id: 57,
-        label: 'MENUITEMS.TABLES.TEXT',
-        icon: 'ri-table-2',
-        subItems: [
-            {
-                id: 58,
-                label: 'MENUITEMS.TABLES.LIST.BASIC',
-                link: '/tables/basic',
-                parentId: 57
-            },
-            {
-                id: 59,
-                label: 'MENUITEMS.TABLES.LIST.ADVANCED',
-                link: '/tables/advanced',
-                parentId: 57
-            }
-        ]
-    },
+
     /*  {
         id: 3,
         label: 'MENUITEMS.CALENDAR.TEXT',

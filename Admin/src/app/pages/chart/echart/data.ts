@@ -510,6 +510,8 @@ const gaugeChart: ChartType = {
             data: [{ value: 50, name: 'Completion rate' }]
         }
     ]
-}
+};
+
+
 
 export { lineChart, barChart, pieChart, customPieChart, gradientBarChart, lineBarChart, gaugeChart, donughnutChart, bubbleChart };
